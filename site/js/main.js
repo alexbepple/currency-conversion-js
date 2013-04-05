@@ -20,7 +20,7 @@ var updateConversionRate = function(from, to) {
     });
 };
 
-$('#currency-form').submit(function() {
+var reactOnSubmitForm = function() {
     var from = $('#from').val();
     var to = $('#to').val();
 
@@ -44,7 +44,8 @@ $('#currency-form').submit(function() {
 
         updateConversionRate(from, to);
     });
-    
 
     return false;
-});
+};
+
+$('#currency-form').submit(reactOnSubmitForm);
