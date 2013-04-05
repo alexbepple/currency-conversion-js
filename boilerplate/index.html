@@ -24,8 +24,14 @@
 
         <h1>What is the conversion rate?</h1>
         <form id="currency-form">
-            <div class="line"><label for="from">From</label> <input type="text" name="from"></div>
-            <div class="line"><label for="to">To</label> <input type="text" name="to"></div>
+            <div class="line">
+                <label for="from">From</label>
+                <input type="text" name="from" id="from" value="USD">
+            </div>
+            <div class="line">
+                <label for="to">To</label>
+                <input type="text" name="to" id="to" value="EUR">
+            </div>
             <button type="submit">Get the rate!</button>
         </form>
         <div id="content"><span id="conversion-rate"></span></div>
