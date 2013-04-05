@@ -6,7 +6,7 @@ var updateConversionRate = function(from, to) {
 
     var url = 'http://www.gocurrency.com/v2/dorate.php?inV=1&from=' + from + 
         '&to=' + to + '&Calculate=Convert';
-    var anyOriginUrl = 'http://anyorigin.com/get?url=' + encodeURIComponent(url) + '&callback=?';
+    var anyOriginUrl = 'http://anyorigin.com/get/?url=' + encodeURIComponent(url) + '&callback=?';
     $.getJSON(anyOriginUrl, function(data){
         var page = data.contents;
         var start = page.lastIndexOf('<div id="converter_results"><ul><li>');
@@ -25,7 +25,7 @@ $('#currency-form').submit(function() {
     var to = $('#to').val();
 
     var url = "http://www.xe.com/iso4217.php";
-    var anyOriginUrl = 'http://anyorigin.com/get?url=' + encodeURIComponent(url) + '&callback=?';
+    var anyOriginUrl = 'http://anyorigin.com/get/?url=' + encodeURIComponent(url) + '&callback=?';
     $.getJSON(anyOriginUrl, function(data){
         var page = data.contents;
         symbols = {};
