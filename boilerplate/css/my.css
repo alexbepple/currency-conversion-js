@@ -1,0 +1,16 @@
+form {
+    width: 400px;
+}
+form .line {
+    margin: 15px;
+}
+form label {
+    text-align: right;
+    width: 40px;
+    float: left;
+    margin: 0 25px;
+}
+form button {
+    margin: auto;
+    display: block;
+}
