@@ -1,4 +1,4 @@
-var symbols;
+var symbols, lastUpdate;
 
 var updateConversionRate = function(from, to) {
     if (!(from in symbols)) throw new Error('Invalid from currency: ' + from);
@@ -24,6 +24,11 @@ $('#currency-form').submit(function() {
     var from = $('#from').val();
     var to = $('#to').val();
 
+    if (symbols && Date.now() - lastUpdate <= 10000) {
+        updateConversionRate(from, to);
+        return false;
+    }
+
     var url = "http://www.xe.com/iso4217.php";
     var anyOriginUrl = 'http://anyorigin.com/get/?url=' + encodeURIComponent(url) + '&callback=?';
     $.getJSON(anyOriginUrl, function(data){
@@ -35,6 +40,7 @@ $('#currency-form').submit(function() {
         while (match = currencyRegex.exec(page)) {
             symbols[match[1]] = match[2];
         }
+        lastUpdate = Date.now();
 
         updateConversionRate(from, to);
     });
