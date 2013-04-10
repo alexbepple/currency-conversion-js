@@ -1,24 +1,34 @@
 describe('Currency-rate retriever', function() {
     var original;
-    var returnHtml;
+    var first;
 
     beforeEach(function() {
         original = {getJSON: $.getJSON};
         loadFixtures('rate.html');
 
-        returnHtml = (function() {
-            var returnedHtml = [];
-            spyOn($, 'getJSON').andCallFake(function(_url, callback) { 
-                callback(stubResponse(returnedHtml.shift()));
-            });
-            var stubResponse = function(html) {
-                return {contents: html};
-            };
+        first = function() {
+            var returnHtml = (function() {
+                var returnedHtml = [];
+                spyOn($, 'getJSON').andCallFake(function(_url, callback) { 
+                    callback(stubResponse(returnedHtml.shift()));
+                });
+                var stubResponse = function(html) {
+                    return {contents: html};
+                };
 
-            return function(html) {
-                returnedHtml.push(html);
+                return function(html) {
+                    returnedHtml.push(html);
+                };
+            })();
+
+            var that = {};
+            that.returnHtml = function(html) {
+                returnHtml(html);
+                return this;
             };
-        })();
+            that.then = that;
+            return that;
+        }();
     });
     afterEach(function() {
         $.getJSON = original.getJSON;
@@ -32,8 +42,8 @@ describe('Currency-rate retriever', function() {
         var fakeRatesHtml = 
             '<div id="converter_results"><ul><li><b>1 x = 2 y</b>';
 
-        returnHtml(fakeCurrencyHtml);
-        returnHtml(fakeRatesHtml);
+        first.returnHtml(fakeCurrencyHtml)
+        .then.returnHtml(fakeRatesHtml);
 
         reactOnSubmitForm();
 
