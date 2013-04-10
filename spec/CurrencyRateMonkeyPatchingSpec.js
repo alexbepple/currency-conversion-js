@@ -14,6 +14,10 @@ describe('Currency-rate retriever', function() {
     };
 
     it('finds conversion rate', function() {
+        var returnedHtml = [];
+        spyOn($, 'getJSON').andCallFake(function(_url, callback) { 
+            callback(stubResponse(returnedHtml.shift()));
+        });
 
         var fakeCurrencyHtml = 
             'href="/currency/foo>USD</a></td><td class="baz">foo</td>' +
@@ -22,15 +26,8 @@ describe('Currency-rate retriever', function() {
         var fakeRatesHtml = 
             '<div id="converter_results"><ul><li><b>1 x = 2 y</b>';
 
-        var callNumber = 0;
-        spyOn($, 'getJSON').andCallFake(function(_url, callback) { 
-            switch (callNumber++) {
-                case 0: 
-                    callback(stubResponse(fakeCurrencyHtml)); break;
-                case 1:
-                    callback(stubResponse(fakeRatesHtml)); break;
-            }
-        });
+        returnedHtml.push(fakeCurrencyHtml);
+        returnedHtml.push(fakeRatesHtml);
 
         reactOnSubmitForm();
 
