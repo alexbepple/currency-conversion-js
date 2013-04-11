@@ -26,6 +26,13 @@ There is nothing to install. The example is self contained.
 Run the Jasmine tests through a `SpecRunner.html`.
 
 
+## Note for Chrome users
+
+If you use Chrome, you will need to serve the spec runner via a web server. Otherwise `loadFixtures` will fail. By default, Chrome applies the same-origin policy to local files, treating them all as different domains.
+
+Alternatively, you can start Chrome with the `--allow-file-access-from-files`, argument.
+
+
 # Credits
 
 Thanks to Brett Schuchert for this prolific example – and for generally publishing everything on [his wiki](http://schuchert.wikispaces.com/) under the [Creative Commons Attribution-ShareAlike license](http://creativecommons.org/licenses/by-sa/2.5/).
